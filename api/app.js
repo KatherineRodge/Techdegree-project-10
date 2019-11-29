@@ -4,6 +4,7 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const morgan = require('morgan');
+const cors = require('cors');
 
 //authorization
 const auth = require('basic-auth');
@@ -30,6 +31,9 @@ app.use(bodyParser.json())
 
 // setup morgan which gives us http request logging
 app.use(morgan('dev'));
+
+//Cors endabled
+app.use(cors());
 
 /* Handler function to wrap each route. */
 function asyncHandler(cb){
