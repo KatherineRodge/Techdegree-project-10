@@ -2,7 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-const Header = () => {
+export default class Header extends React.PureComponent {
+
+  render () {
+  //const { context } = this.props;
+
      return(
       <div className="header">
         <div className="bounds">
@@ -15,5 +19,4 @@ const Header = () => {
       </div>
     )
 }
-
-export default Header;
+}

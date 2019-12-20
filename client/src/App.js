@@ -1,16 +1,28 @@
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import React, {Component} from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 //import logo from './logo.svg';
 import './App.css';
 //import '../api/app.js'
 
-import Header from './components/Header.js'
+import withContext from './context.js';
 
-function App() {
+import Header from './components/Header.js'
+import Courses from './components/Courses.js'
+import CourseDetail from './components/CourseDetail.js'
+
+const HeaderWithContext = withContext(Header);
+const CoursesWithContext = withContext(Courses);
+const CourseDetailWithContext = withContext(CourseDetail);
+
+export default class App extends Component {
+
+render(){
 return(
   <Router>
     <div>
-      <Header/>
+      <HeaderWithContext/>
+      <Route exact path="/" component={CoursesWithContext}/>
+      <Route path="/course/:id" component={CourseDetailWithContext}/>
     </div>
   </Router>
 )
@@ -33,5 +45,4 @@ return(
 //     </div>
 //   );
 }
-
-export default App;
+}
