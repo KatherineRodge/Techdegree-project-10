@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import Cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 import Data from './data.js';
 
 const Context = React.createContext();
@@ -8,7 +8,8 @@ const Context = React.createContext();
 export class Provider extends Component {
 
   state = {
-    courses: []
+    courses: [],
+    authenticatedUser: Cookies.getJSON('authenticatedUser') || null
   }
 
   constructor() {
@@ -23,9 +24,13 @@ export class Provider extends Component {
   }
 
   render() {
-    const {courses} = this.state;
+    const {courses, authenticatedUser} = this.state;
     const value = {
       courses,
+      authenticatedUser,
+      actions: {
+        signIn : this.signIn
+      },
       data: this.data
     };
 
@@ -36,23 +41,22 @@ export class Provider extends Component {
       );
   }
 
-  //
-  //
-  // signIn = async (username, password) => {
-  //   const user = await this.data.getUser(username, password);
-  //   if (user !== null) {
-  //     this.setState(() => {
-  //       return {
-  //         authenticatedUser: user,
-  //       };
-  //     });
-  //     const cookieOptions = {
-  //       expires: 1 // 1 day
-  //     };
-  //     Cookies.set('authenticatedUser', JSON.stringify(user), {cookieOptions});
-  //   }
-  //   return user;
-  // }
+
+  signIn = async (username, password) => {
+    const user = await this.data.getUser(username, password);
+    if (user !== null) {
+      this.setState(() => {
+        return {
+          authenticatedUser: user,
+        };
+      });
+      const cookieOptions = {
+        expires: 1 // 1 day
+      };
+      Cookies.set('authenticatedUser', JSON.stringify(user), {cookieOptions});
+    }
+    return user;
+  }
   //
   // signOut = () => {
   //   this.setState({ authenticatedUser: null });

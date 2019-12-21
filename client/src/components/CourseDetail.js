@@ -16,7 +16,6 @@ if (courses.length === 0) {
     )
 } else {
   const result = courses.find(element => (element.id === courseId));
-  console.log(result);
   let time = result.estimatedTime;
   let materialsNeeded = result.materialsNeeded;
   let estimatedTime = {};
@@ -25,12 +24,10 @@ if (courses.length === 0) {
 //check to see if time has a value
 function checkTime() {
    if (time) {
-    console.log(true);
       estimatedTime = <li className="course--stats--list--item">
                           <h4>Estimated Time</h4>
                           <h3>{result.estimatedTime}</h3>
                           </li>
-      console.log({estimatedTime});
       return estimatedTime;
   } else {
       estimatedTime = null;
@@ -46,7 +43,6 @@ function checkMaterials() {
     const materialListItems = materialsNeeded.map((material, index) =>
       <li key={index}>{material}</li>
     );
-    console.log(materialsNeeded);
     materialList =
         <li className="course--stats--list--item">
           <h4>Materials Needed</h4>

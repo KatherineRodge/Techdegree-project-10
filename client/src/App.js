@@ -7,12 +7,19 @@ import './App.css';
 import withContext from './context.js';
 
 import Header from './components/Header.js'
+import UserSignUp from './components/UserSignUp.js'
+import UserSignIn from './components/UserSignIn.js'
 import Courses from './components/Courses.js'
 import CourseDetail from './components/CourseDetail.js'
+import CreateCourse from './components/CreateCourse.js'
+
 
 const HeaderWithContext = withContext(Header);
+const UserSignUpWithContext = withContext(UserSignUp);
+const UserSignInWithContext = withContext(UserSignIn);
 const CoursesWithContext = withContext(Courses);
 const CourseDetailWithContext = withContext(CourseDetail);
+const CreateCourseWithContext = withContext(CreateCourse);
 
 export default class App extends Component {
 
@@ -22,7 +29,10 @@ return(
     <div>
       <HeaderWithContext/>
       <Route exact path="/" component={CoursesWithContext}/>
+      <Route path="/sign-up" component={UserSignUpWithContext}/>
+      <Route path='/sign-in' component={UserSignInWithContext}/>
       <Route path="/course/:id" component={CourseDetailWithContext}/>
+      <Route path="/create-course" component={CreateCourseWithContext}/>
     </div>
   </Router>
 )
