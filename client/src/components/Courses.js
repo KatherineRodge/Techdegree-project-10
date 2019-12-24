@@ -3,8 +3,22 @@ import React from 'react'
 
 export default class Courses extends React.Component {
 
+state = {
+  courses: []
+}
+
+async componentDidMount(){
+  const {context} = this.props;
+  let courseData = await context.data.getCourses();
+  courseData = courseData.courses;
+  this.setState({courses: courseData})
+}
+
+//const {courses} = this.props.context;
+
+
 render() {
-const {courses} = this.props.context;
+const {courses} = this.state;
 const courseList = courses.map((course, index) =>
   <div className="grid-33" key={index}><a className="course--module course--link" href={`/course/${course.id}`}>
     <h4 className="course--label">{course.id}</h4>

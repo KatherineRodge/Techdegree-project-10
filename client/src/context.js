@@ -17,21 +17,16 @@ export class Provider extends Component {
     this.data = new Data();
   }
 
-  async componentDidMount() {
-    let courseData = await Data.prototype.getCourses();
-    courseData = courseData.courses;
-    this.setState({courses: courseData})
-  }
-
   render() {
     const {courses, authenticatedUser} = this.state;
     const value = {
       courses,
       authenticatedUser,
+      data: this.data,
       actions: {
-        signIn : this.signIn
-      },
-      data: this.data
+        signIn : this.signIn,
+        signOut: this.signOut
+      }
     };
 
       return (
@@ -42,8 +37,12 @@ export class Provider extends Component {
   }
 
 
-  signIn = async (username, password) => {
-    const user = await this.data.getUser(username, password);
+  signIn = async (emailAddress, password) => {
+    let originalPassword = password;
+    let user = await Data.prototype.getUser(emailAddress, password);
+    user = user[0];
+    user.password = originalPassword;
+    console.log(user);
     if (user !== null) {
       this.setState(() => {
         return {
@@ -53,15 +52,15 @@ export class Provider extends Component {
       const cookieOptions = {
         expires: 1 // 1 day
       };
-      Cookies.set('authenticatedUser', JSON.stringify(user), {cookieOptions});
+      Cookies.set('authenticatedUser', user, cookieOptions);
     }
     return user;
   }
-  //
-  // signOut = () => {
-  //   this.setState({ authenticatedUser: null });
-  //   Cookies.remove('authenticatedUser');
-  // }
+
+  signOut = () => {
+    this.setState({ authenticatedUser: null });
+    Cookies.remove('authenticatedUser');
+  }
 }
 
 export const Consumer = Context.Consumer;

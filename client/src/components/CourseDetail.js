@@ -2,9 +2,21 @@
 import React from 'react'
 
 export default class CourseDetail extends React.Component {
+state = {
+  courses: [],
+  authorizedUser: this.props.context.authenticatedUser
+}
+
+async componentDidMount(){
+  const {context} = this.props;
+  let courseData = await context.data.getCourses();
+  courseData = courseData.courses;
+  this.setState({courses: courseData})
+}
 
 render(){
-const {courses} = this.props.context;
+const {courses} = this.state;
+const {authorizedUser} = this.state;
 let courseId = this.props.match.params.id;
 courseId = parseInt(courseId, 10);
 
@@ -16,10 +28,24 @@ if (courses.length === 0) {
     )
 } else {
   const result = courses.find(element => (element.id === courseId));
+  console.log(result);
   let time = result.estimatedTime;
   let materialsNeeded = result.materialsNeeded;
   let estimatedTime = {};
   let materialList = {};
+  let updateButtons = null;
+
+//check to see a user is signed in and if that user owns this course
+function checkUser(e){
+  if(authorizedUser && (authorizedUser.id === result.userId)){
+    updateButtons =
+      <span><a className="button" href="/update-course">Update Course</a>
+      <a className="button" onClick={e}>Delete Course</a></span>
+      return updateButtons;
+  }
+}
+
+//onClick={this.delete}
 
 //check to see if time has a value
 function checkTime() {
@@ -59,8 +85,10 @@ function checkMaterials() {
 
 checkTime();
 checkMaterials();
+checkUser(this.delete);
 
-const requiredInformation =   <div className="grid-66">
+const requiredInformation =
+   <div className="grid-66">
       <div className="course--header">
         <h4 className="course--label">Course</h4>
         <h3 className="course--title">{result.title}</h3>
@@ -75,8 +103,9 @@ const requiredInformation =   <div className="grid-66">
     <div>
       <div className="actions--bar">
         <div className="bounds">
-          <div className="grid-100"><span><a className="button" href="update-course.html">Update Course</a><a className="button" href="#">Delete Course</a></span><a
-              className="button button-secondary" href="/">Return to List</a></div>
+          <div className="grid-100">
+          {updateButtons}
+          <a className="button button-secondary" href="/">Return to List</a></div>
         </div>
       </div>
       {requiredInformation}
@@ -92,4 +121,22 @@ const requiredInformation =   <div className="grid-66">
       </div>
     </div>
 )}}
-}
+
+  delete = () => {
+    const { match, context } = this.props;
+    const {courses} = this.state;
+    const { authenticatedUser} = this.props.context;
+
+    context.data.deleteCourse(match, authenticatedUser)
+      .then( errors => {
+        if (errors.length > 0) {
+          this.setState({ errors });
+        } else {
+          this.props.history.push('/');
+        }
+      })
+      .catch((err) => {
+        this.props.history.push('/error');
+      });
+    }
+  }

@@ -62,7 +62,7 @@ const authorizationMiddleware = (asyncHandler( async(req, res, next) => {
         if (authPassword) {
           authUser = await User.findAll({
             where: { emailAddress : cred.name },
-            attributes: { exclude: ['password', 'createdAt', 'updatedAt'] }
+            attributes: { exclude: ['createdAt', 'updatedAt'] }
           });
           app.locals.user = authUser;
         } else {
@@ -221,6 +221,7 @@ app.put('/api/courses/:id', authorizationMiddleware, asyncHandler(async (req, re
 app.delete('/api/courses/:id', authorizationMiddleware, asyncHandler(async (req, res) => {
   try{
   let course =  await Course.findByPk(req.params.id);
+  console.log(course);
   //check to see if authorized user owns the course and if course exists
   if(course && (course.userId === app.locals.user[0].dataValues.id)) {
   course = course.destroy();

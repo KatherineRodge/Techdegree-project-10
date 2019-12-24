@@ -1,24 +1,29 @@
 import React, {Component} from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-//import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-//import '../api/app.js'
 
-import withContext from './context.js';
 
 import Header from './components/Header.js'
+import NotFound from './components/NotFound.js';
 import UserSignUp from './components/UserSignUp.js'
 import UserSignIn from './components/UserSignIn.js'
+import UserSignOut from './components/UserSignOut.js'
 import Courses from './components/Courses.js'
 import CourseDetail from './components/CourseDetail.js'
+import UpdateCourse from './components/UpdateCourse.js'
 import CreateCourse from './components/CreateCourse.js'
+
+import withContext from './context.js';
+import PrivateRoute from './PrivateRoutes.js';
 
 
 const HeaderWithContext = withContext(Header);
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
+const UserSignOutWithContext = withContext(UserSignOut);
 const CoursesWithContext = withContext(Courses);
 const CourseDetailWithContext = withContext(CourseDetail);
+const UpdateCourseWithContext = withContext(UpdateCourse);
 const CreateCourseWithContext = withContext(CreateCourse);
 
 export default class App extends Component {
@@ -28,31 +33,19 @@ return(
   <Router>
     <div>
       <HeaderWithContext/>
+
+      <Switch>
       <Route exact path="/" component={CoursesWithContext}/>
+      <PrivateRoute path="/authenticated" Redirect="/"/>
       <Route path="/sign-up" component={UserSignUpWithContext}/>
       <Route path='/sign-in' component={UserSignInWithContext}/>
+      <Route path='/sign-out' component={UserSignOutWithContext}/>
       <Route path="/course/:id" component={CourseDetailWithContext}/>
+      <Route path="/course/:id/update-course" component={UpdateCourseWithContext}/>
       <Route path="/create-course" component={CreateCourseWithContext}/>
+      <Route component={NotFound}/>
+      </Switch>
     </div>
   </Router>
-)
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-}
+)}
 }

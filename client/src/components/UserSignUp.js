@@ -83,26 +83,28 @@ export default class UserSignUp extends React.Component {
     submit = () => {
       const { context } = this.props;
       const {
-        name,
-        username,
-        password,
+        firstName,
+        lastName,
+        emailAddress,
+        password
       } = this.state;
 
       // Create user
       const user = {
-        name,
-        username,
+        firstName,
+        lastName,
+        emailAddress,
         password,
       };
 
       context.data.createUser(user)
         .then( errors => {
-          if (errors.length) {
+          if (errors.length > 0) {
             this.setState({ errors });
           } else {
-            context.actions.signIn(username, password)
+            context.actions.signIn(emailAddress, password)
               .then(() => {
-                this.props.history.push('/authenticated');
+                this.props.history.push('/');
               });
           }
         })
