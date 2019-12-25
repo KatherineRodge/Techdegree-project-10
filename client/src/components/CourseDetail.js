@@ -39,7 +39,7 @@ if (courses.length === 0) {
 function checkUser(e){
   if(authorizedUser && (authorizedUser.id === result.userId)){
     updateButtons =
-      <span><a className="button" href="/update-course">Update Course</a>
+      <span><a className="button" href={courseId + "/update-course"}>Update Course</a>
       <a className="button" onClick={e}>Delete Course</a></span>
       return updateButtons;
   }

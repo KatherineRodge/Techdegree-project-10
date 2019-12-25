@@ -90,4 +90,14 @@ export default class Data {
       }
       }
 
+      async updateCourse(course, user){
+        console.log(course);
+        let id = course.id;
+        const response = await this.api(`/courses/${id}`, 'PUT', course, true, user);
+        if (response.status === 204) {
+          return [];
+        } else {
+          throw new Error();
+        }
+      }
 }

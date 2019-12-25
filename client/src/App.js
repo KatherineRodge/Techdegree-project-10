@@ -40,7 +40,7 @@ return(
       <Route path="/sign-up" component={UserSignUpWithContext}/>
       <Route path='/sign-in' component={UserSignInWithContext}/>
       <Route path='/sign-out' component={UserSignOutWithContext}/>
-      <Route path="/course/:id" component={CourseDetailWithContext}/>
+      <Route exact path="/course/:id" component={CourseDetailWithContext}/>
       <Route path="/course/:id/update-course" component={UpdateCourseWithContext}/>
       <Route path="/create-course" component={CreateCourseWithContext}/>
       <Route component={NotFound}/>

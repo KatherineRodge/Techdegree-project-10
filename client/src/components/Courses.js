@@ -21,7 +21,7 @@ render() {
 const {courses} = this.state;
 const courseList = courses.map((course, index) =>
   <div className="grid-33" key={index}><a className="course--module course--link" href={`/course/${course.id}`}>
-    <h4 className="course--label">{course.id}</h4>
+    <h4 className="course--label">{index+1}</h4>
     <h3 className="course--title">{course.title}</h3>
       </a>
   </div>
