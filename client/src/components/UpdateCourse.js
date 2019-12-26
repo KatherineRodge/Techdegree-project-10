@@ -19,7 +19,6 @@ export default class UpdateCourse extends React.Component {
     let courseId = match.params.id;
     courseId = parseInt(courseId, 10);
     let result = courseData.find(element => (element.id === courseId));
-    console.log(result);
     this.setState(
       {courses: courseData,
        title: result.title,
@@ -49,10 +48,6 @@ export default class UpdateCourse extends React.Component {
   const userFirstName = authenticatedUser.firstName;
   const userLastName = authenticatedUser.lastName;
 
-  let courseId = this.props.match.params.id;
-  courseId = parseInt(courseId, 10);
-
-
   if (courses.length === 0) {
       return (
         <div>
@@ -60,21 +55,10 @@ export default class UpdateCourse extends React.Component {
         </div>
       )
   } else {
-    const result = courses.find(element => (element.id === courseId));
-
     return(
         <div className="bounds course--detail">
         <h1>Update Course</h1>
         <div>
-          <div>
-            <h2 className="validation--errors--label">Validation errors</h2>
-            <div className="validation-errors">
-              <ul>
-                <li>Please provide a value for "Title"</li>
-                <li>Please provide a value for "Description"</li>
-              </ul>
-            </div>
-          </div>
           <Form
             cancel={this.cancel}
             errors={errors}
@@ -155,7 +139,7 @@ change = (event) => {
 
 
 submit = () => {
-  const { match, context } = this.props;
+  const { context } = this.props;
   const { authenticatedUser} = this.props.context;
 
   const {
@@ -174,6 +158,7 @@ submit = () => {
     materialsNeeded,
     id
   };
+
 
   context.data.updateCourse(course, authenticatedUser)
     .then( errors => {

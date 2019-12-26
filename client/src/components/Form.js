@@ -33,16 +33,18 @@ export default (props) => {
   );
 }
 
-function ErrorsDisplay({ errors }) {
+function ErrorsDisplay({errors}) {
   let errorsDisplay = null;
+  console.log(errors);
 
   if (errors.length > 0) {
+    let errorsString = errors.split(',');
     errorsDisplay = (
       <div>
-        <h2 className="validation--errors--label">Validation errors</h2>
+        <h2 className="validation--errors--label">Validation Errors</h2>
         <div className="validation-errors">
           <ul>
-            {errors.map((error, i) => <li key={i}>{error}</li>)}
+            {errorsString.map((error, i) => <li key={i}>{error}</li>)}
           </ul>
         </div>
       </div>

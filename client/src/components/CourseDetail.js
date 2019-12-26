@@ -28,7 +28,6 @@ if (courses.length === 0) {
     )
 } else {
   const result = courses.find(element => (element.id === courseId));
-  console.log(result);
   let time = result.estimatedTime;
   let materialsNeeded = result.materialsNeeded;
   let estimatedTime = {};
@@ -40,7 +39,7 @@ function checkUser(e){
   if(authorizedUser && (authorizedUser.id === result.userId)){
     updateButtons =
       <span><a className="button" href={courseId + "/update-course"}>Update Course</a>
-      <a className="button" onClick={e}>Delete Course</a></span>
+      <button className="button" onClick={e}>Delete Course</button></span>
       return updateButtons;
   }
 }
@@ -124,7 +123,6 @@ const requiredInformation =
 
   delete = () => {
     const { match, context } = this.props;
-    const {courses} = this.state;
     const { authenticatedUser} = this.props.context;
 
     context.data.deleteCourse(match, authenticatedUser)

@@ -121,7 +121,7 @@ app.post('/api/users', asyncHandler(async (req, res) => {
           if(error.name === "SequelizeValidationError") {
           return res.status(400).json(error.message);
         } else {
-          return res.status(400).json(error.message)
+          return res.status(400).json(error.message);
         }
       }
 
@@ -202,19 +202,17 @@ app.put('/api/courses/:id', authorizationMiddleware, asyncHandler(async (req, re
       //check to see if authorized user owns the course
       if (course && (course.userId === app.locals.user[0].dataValues.id)) {
       //check to see if description or title are true and can be updated
-            if(req.body.description || req.body.title) {
-            course = await course.update(req.body);
-            return res.status(204).json();
-          } else {
-            return res.status(400).json("Please provide an update for the Course Title, Course Description or Both");
-          }} else if (course && (course.userId != app.locals.user[0].dataValues.id)) {
+          if(req.body.description || req.body.title) {
+          course = await course.update(req.body);
+          return res.status(204).json();
+      }}} catch(error) {
+            if (error.name === "SequelizeValidationError") {
+            return res.status(400).json(error.message);
+        }   else if (course && (course.userId != app.locals.user[0].dataValues.id)) {
             return res.status(403).json('Sorry, you not authorized to make changes to this course');
           } else {
             return res.status(404).json('Course not found');
           }}
-        catch(error){
-          return res.status(400).json(error.message);
-        }
 }));
 
 //Delete a Course

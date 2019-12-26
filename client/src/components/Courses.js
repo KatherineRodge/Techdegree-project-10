@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 export default class Courses extends React.Component {
 
 state = {
@@ -13,9 +12,6 @@ async componentDidMount(){
   courseData = courseData.courses;
   this.setState({courses: courseData})
 }
-
-//const {courses} = this.props.context;
-
 
 render() {
 const {courses} = this.state;

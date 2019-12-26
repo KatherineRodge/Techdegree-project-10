@@ -94,7 +94,7 @@ export default class UserSignUp extends React.Component {
         firstName,
         lastName,
         emailAddress,
-        password,
+        password
       };
 
       context.data.createUser(user)
@@ -102,7 +102,7 @@ export default class UserSignUp extends React.Component {
           if (errors.length > 0) {
             this.setState({ errors });
           } else {
-            context.actions.signIn(emailAddress, password)
+            context.actions.signIn(user.emailAddress, user.password)
               .then(() => {
                 this.props.history.push('/');
               });
