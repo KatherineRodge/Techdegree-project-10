@@ -4,21 +4,41 @@ import { Consumer } from './context.js';
 
 export default ({ component: Component, ...rest }) => {
   return (
-    <Consumer>
-      {context => (
-        <Route
-          {...rest}
-          render={props => context.authenticatedUser ? (
-              <Component {...props} />
-            ) : (
-              <Redirect to={{
-                pathname: '/signin',
-                state: { from: props.location }
-              }} />
-            )
-          }
-        />
-    )}
-    </Consumer>
-  );
+      <Consumer>
+        {context => (
+          <Route
+            {...rest}
+            render={props => context.authenticatedUser ? (
+                <Component {...props} />
+              ) : (
+                <Redirect to={{
+                  pathname: '/sign-in',
+                  state: { from: props.location }
+                }} />
+              )
+            }
+          />
+      )}
+      </Consumer>  );
 };
+
+
+
+// return (
+//   <Consumer>
+//     {context => (
+//       <Route
+//         {...rest}
+//         render={props => context.authenticatedUser ? (
+//             <Component {...props} />
+//           ) : (
+//             <Redirect to={{
+//               pathname: '/signin',
+//               state: { from: props.location }
+//             }} />
+//           )
+//         }
+//       />
+//   )}
+//   </Consumer>
+// );

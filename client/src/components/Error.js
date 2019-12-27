@@ -2,7 +2,7 @@ import React from 'react';
 
 export default () => (
   <div className="bounds error">
-    <h1>Not Found</h1>
-    <p>Sorry! We couldn't find the page you're looking for.</p>
+    <h1>Sorry</h1>
+    <p>An Unexpect Error has Occured</p>
   </div>
 );

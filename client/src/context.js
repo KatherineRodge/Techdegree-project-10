@@ -42,7 +42,7 @@ export class Provider extends Component {
     let user = await Data.prototype.getUser(emailAddress, password);
     user = user[0];
     user.password = originalPassword;
-    console.log(user);
+
     if (user !== null) {
       this.setState(() => {
         return {
