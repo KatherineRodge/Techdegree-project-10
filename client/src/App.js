@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 
-
 import Header from './components/Header.js'
-import Auth from './components/Authenticated.js'
 import NotFound from './components/NotFound.js';
 import UserSignUp from './components/UserSignUp.js'
 import UserSignIn from './components/UserSignIn.js'
@@ -19,9 +17,7 @@ import Error from "./components/Error.js"
 import withContext from './context.js';
 import PrivateRoute from './PrivateRoutes.js';
 
-
 const HeaderWithContext = withContext(Header);
-const AuthWithContext = withContext(Auth);
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
@@ -47,7 +43,7 @@ return(
       <PrivateRoute path="/course/:id/update-course" component={UpdateCourseWithContext}/>
       <PrivateRoute path="/create-course" component={CreateCourseWithContext}/>
       <Route path="/forbidden" component={Forbidden}/>
-      <Route path="/error" component={Error}/>
+      <Route path="/error" component={Error} />
       <Route component={NotFound}/>
       </Switch>
     </div>

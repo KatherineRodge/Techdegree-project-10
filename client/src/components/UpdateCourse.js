@@ -1,4 +1,5 @@
 import React from 'react';
+import {Redirect} from 'react-router-dom'
 import Form from './Form.js';
 
 export default class UpdateCourse extends React.Component {
@@ -19,6 +20,8 @@ export default class UpdateCourse extends React.Component {
     let courseId = match.params.id;
     courseId = parseInt(courseId, 10);
     let result = courseData.find(element => (element.id === courseId));
+
+
     this.setState(
       {courses: courseData,
        title: result.title,
@@ -47,6 +50,14 @@ export default class UpdateCourse extends React.Component {
 
   const userFirstName = authenticatedUser.firstName;
   const userLastName = authenticatedUser.lastName;
+  let courseId = this.props.match.params.id;
+  courseId = parseInt(courseId, 10);
+  let result = courses.find(element => (element.id === courseId));
+
+
+  // if(authenticatedUser.id !== result.userId){
+  //   return(<Redirect="/forbidden"/>)
+  // }
 
   if (courses.length === 0) {
       return (
@@ -54,6 +65,8 @@ export default class UpdateCourse extends React.Component {
           <p>Loading...</p>
         </div>
       )
+  } else if (authenticatedUser.id !== result.userId) {
+    return(<Redirect to="/forbidden"/>)
   } else {
     return(
         <div className="bounds course--detail">
@@ -173,8 +186,8 @@ submit = () => {
     });
 }
 
-cancel = () => {
-  this.props.history.push('/');
-}
+  cancel = () => {
+    this.props.history.push('/');
+  }
 
 }

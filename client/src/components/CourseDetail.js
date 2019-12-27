@@ -20,6 +20,7 @@ const {authorizedUser} = this.state;
 let courseId = this.props.match.params.id;
 courseId = parseInt(courseId, 10);
 
+
 if (courses.length === 0) {
     return (
       <div>
@@ -27,7 +28,9 @@ if (courses.length === 0) {
       </div>
     )
 } else {
+
   const result = courses.find(element => (element.id === courseId));
+
   let time = result.estimatedTime;
   let materialsNeeded = result.materialsNeeded;
   let estimatedTime = {};

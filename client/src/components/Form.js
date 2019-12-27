@@ -35,7 +35,6 @@ export default (props) => {
 
 function ErrorsDisplay({errors}) {
   let errorsDisplay = null;
-  console.log(errors);
 
   if (errors.length > 0) {
     let errorsString = errors.split(',');

@@ -65,7 +65,7 @@ export default class UserSignIn extends React.Component {
 
   submit = () => {
     const { context } = this.props;
-    const { from } = this.props.location.state || { from: { pathname: '/authenticated' } };
+    const { state } = this.props.location;
     const { emailAddress, password } = this.state;
 
     context.actions.signIn(emailAddress, password)
@@ -75,7 +75,8 @@ export default class UserSignIn extends React.Component {
             return { errors: [ 'Sign-in was unsuccessful' ] };
           });
         } else {
-          this.props.history.push(from);
+          console.log(state);
+          this.props.history.push("/");
         }
       })
       .catch((error) => {
