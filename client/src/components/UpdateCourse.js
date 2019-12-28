@@ -21,7 +21,7 @@ export default class UpdateCourse extends React.Component {
     courseId = parseInt(courseId, 10);
     let result = courseData.find(element => (element.id === courseId));
 
-
+    if (result) {
     this.setState(
       {courses: courseData,
        title: result.title,
@@ -30,17 +30,27 @@ export default class UpdateCourse extends React.Component {
        materialsNeeded: result.materialsNeeded,
        id: result.id
       }
-    )
+    )} else {
+      this.setState(
+        {courses: courseData}
+      )
+    }
   }
 
 
   render(){
+
+  const {courses} = this.state;
+
+  let courseId = this.props.match.params.id;
+  courseId = parseInt(courseId, 10);
+  let result = courses.find(element => (element.id === courseId));
+
   const {
     title,
     description,
     estimatedTime,
     materialsNeeded,
-    courses,
     errors
   } = this.state;
 
@@ -50,14 +60,7 @@ export default class UpdateCourse extends React.Component {
 
   const userFirstName = authenticatedUser.firstName;
   const userLastName = authenticatedUser.lastName;
-  let courseId = this.props.match.params.id;
-  courseId = parseInt(courseId, 10);
-  let result = courses.find(element => (element.id === courseId));
 
-
-  // if(authenticatedUser.id !== result.userId){
-  //   return(<Redirect="/forbidden"/>)
-  // }
 
   if (courses.length === 0) {
       return (
@@ -65,9 +68,9 @@ export default class UpdateCourse extends React.Component {
           <p>Loading...</p>
         </div>
       )
-  } else if (authenticatedUser.id !== result.userId) {
+  } else if (result && authenticatedUser.id !== result.userId) {
     return(<Redirect to="/forbidden"/>)
-  } else {
+  } else if (result) {
     return(
         <div className="bounds course--detail">
         <h1>Update Course</h1>
@@ -121,11 +124,14 @@ export default class UpdateCourse extends React.Component {
                         </li>
                       <li className="course--stats--list--item">
                         <h4>Materials Needed</h4>
+                        <p className="note-please">Please Hit "Enter" after each listed Item and ensure the "* " stays in front of each item to keep your list looking nice and organized!</p>
                         <textarea
                           id="materialsNeeded"
                           name="materialsNeeded"
                           value={materialsNeeded}
                           onChange={this.change}
+                          onKeyUp={this.keyUp}
+                          onKeyPress={this.keyPressed}
                           placeholder="List Materials" />
                         </li>
                     </ul>
@@ -135,7 +141,9 @@ export default class UpdateCourse extends React.Component {
             )} />
         </div>
       </div>
-)}
+)} else {
+   return(<Redirect to="/notFound"/>)
+}
 }
 
 //on input change set state
@@ -150,18 +158,40 @@ change = (event) => {
   });
 }
 
+//Helps with markup for the materials needed list
+keyPressed = (event) => {
+  if (event.target.value === '') {
+    event.target.value = "* "
+  }
+}
 
+keyUp = (event) => {
+  if (event.target.value === '') {
+    event.target.value = "* "
+  }
+
+  if (event.key === "Enter") {
+    event.target.value += "* ";
+  }
+}
+
+//Submit handling
 submit = () => {
   const { context } = this.props;
   const { authenticatedUser} = this.props.context;
 
-  const {
+  let {
     title,
     description,
-    estimatedTime,
     materialsNeeded,
+    estimatedTime,
     id
   } = this.state;
+
+  if (estimatedTime) {
+  estimatedTime =  estimatedTime.match(/\d+/)[0];
+  estimatedTime = estimatedTime + " Hours";
+  }
 
   // Create course
   const course = {
@@ -172,13 +202,13 @@ submit = () => {
     id
   };
 
-
+//Update
   context.data.updateCourse(course, authenticatedUser)
     .then( errors => {
       if (errors.length > 0) {
         this.setState({ errors });
       } else {
-        this.props.history.push('/');
+        this.props.history.push(`/course/${id}`);
       }
     })
     .catch((err) => {
@@ -186,8 +216,10 @@ submit = () => {
     });
 }
 
+//Return back to course
   cancel = () => {
-    this.props.history.push('/');
+    const {id} = this.state;
+    this.props.history.push(`/course/${id}`);
   }
 
 }

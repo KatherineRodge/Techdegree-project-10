@@ -754,5 +754,10 @@ input:focus {
 }
 
 .error {
-  margin-left: 15px; 
+  margin-left: 15px;
+}
+
+.note-please {
+  font-family: "Work Sans", sans-serif;
+  font-size: 10px;
 }

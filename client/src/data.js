@@ -2,9 +2,11 @@ import config from './config.js';
 
 export default class Data {
 
+//Fetches API from localhost:5000 as defined in the config File
   api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
     const url = config.apiBaseUrl + path;
 
+//sets Headers
     let options = {
       method,
       headers: {
@@ -12,10 +14,12 @@ export default class Data {
       },
     };
 
+//if body is required
     if (body !== null) {
       options.body = JSON.stringify(body);
     }
 
+//if authorized user is required
     if (requiresAuth === true) {
       let encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`);
       options.headers['Authorization'] = `Basic ${encodedCredentials}`;
@@ -24,6 +28,7 @@ export default class Data {
     return fetch(url, options);
 }
 
+//Fetched course List
     async getCourses() {
       const response = await this.api(`/courses`, 'GET');
       if (response.status === 200) {
@@ -37,6 +42,7 @@ export default class Data {
       }
     }
 
+//Fetches Currently Auth User
     async getUser(emailAddress, password) {
         const response = await this.api(`/users`, 'GET', null, true, { emailAddress, password });
         if (response.status === 200) {
@@ -50,6 +56,7 @@ export default class Data {
         }
       }
 
+//Creates new user
       async createUser(user) {
         const response = await this.api('/users', 'POST', user);
         if (response.status === 201) {
@@ -65,6 +72,7 @@ export default class Data {
         }
       }
 
+//Creates new Course
       async createCourse(course, user) {
         const response = await this.api('/courses', 'POST', course, true, user);
         if (response.status === 201) {
@@ -80,6 +88,7 @@ export default class Data {
         }
       }
 
+//Deletes Course
       async deleteCourse(match, user){
       let id = match.params.id;
       const response = await this.api(`/courses/${id}`, 'DELETE', match, true, user);
@@ -90,6 +99,7 @@ export default class Data {
       }
       }
 
+//Updates and Saves Course
       async updateCourse(course, user){
         let id = course.id;
         const response = await this.api(`/courses/${id}`, 'PUT', course, true, user);

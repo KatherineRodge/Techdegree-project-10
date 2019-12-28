@@ -1,5 +1,6 @@
 //Shows individual course data, plus delete and update
 import React from 'react'
+import {Redirect} from 'react-router-dom';
 
 export default class CourseDetail extends React.Component {
 state = {
@@ -7,6 +8,7 @@ state = {
   authorizedUser: this.props.context.authenticatedUser
 }
 
+//Sets state to all Courses Available
 async componentDidMount(){
   const {context} = this.props;
   let courseData = await context.data.getCourses();
@@ -14,22 +16,22 @@ async componentDidMount(){
   this.setState({courses: courseData})
 }
 
+//Finds course that matchs id
 render(){
 const {courses} = this.state;
 const {authorizedUser} = this.state;
 let courseId = this.props.match.params.id;
 courseId = parseInt(courseId, 10);
+const result = courses.find(element => (element.id === courseId));
 
-
+//waits for courses to result a value
 if (courses.length === 0) {
     return (
       <div>
         <p>Loading...</p>
       </div>
     )
-} else {
-
-  const result = courses.find(element => (element.id === courseId));
+} else if(result){
 
   let time = result.estimatedTime;
   let materialsNeeded = result.materialsNeeded;
@@ -47,7 +49,6 @@ function checkUser(e){
   }
 }
 
-//onClick={this.delete}
 
 //check to see if time has a value
 function checkTime() {
@@ -89,6 +90,7 @@ checkTime();
 checkMaterials();
 checkUser(this.delete);
 
+//Renders Course Description / Title as those are required
 const requiredInformation =
    <div className="grid-66">
       <div className="course--header">
@@ -122,8 +124,12 @@ const requiredInformation =
         </div>
       </div>
     </div>
-)}}
+)} else {
+   return (<Redirect to="/notFound" />)
+}
 
+}
+//delete course functionality
   delete = () => {
     const { match, context } = this.props;
     const { authenticatedUser} = this.props.context;

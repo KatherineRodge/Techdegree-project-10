@@ -13,6 +13,7 @@ async componentDidMount(){
   this.setState({courses: courseData})
 }
 
+//Displays all Courses currently in database
 render() {
 const {courses} = this.state;
 const courseList = courses.map((course, index) =>

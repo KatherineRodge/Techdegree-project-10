@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 
@@ -44,7 +45,8 @@ return(
       <PrivateRoute path="/create-course" component={CreateCourseWithContext}/>
       <Route path="/forbidden" component={Forbidden}/>
       <Route path="/error" component={Error} />
-      <Route component={NotFound}/>
+      <Route path='/notFound' component={NotFound} />
+      <Redirect from="*" to="/notFound" />
       </Switch>
     </div>
   </Router>

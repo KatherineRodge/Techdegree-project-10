@@ -3,6 +3,7 @@ import Form from './Form.js';
 
 export default class CreateCourse extends React.Component {
 
+//sets all course item to state
 state = {
   title: '',
   description: '',
@@ -85,6 +86,8 @@ return(
                         name="materialsNeeded"
                         value={materialsNeeded}
                         onChange={this.change}
+                        onKeyUp={this.keyUp}
+                        onKeyPress={this.keyPressed}
                         placeholder="List Materials" />
                       </li>
                   </ul>
@@ -108,17 +111,41 @@ change = (event) => {
   });
 }
 
+//Helps with markup for the materials List
+keyPressed = (event) => {
+  if (event.target.value === '') {
+    event.target.value = "* "
+  }
+}
+//Helps with markup for the materials List
+
+keyUp = (event) => {
+  if (event.target.value === '') {
+    event.target.value = "* "
+  }
+
+  if (event.key === "Enter") {
+    event.target.value += "* ";
+  }
+}
+
 //on submit create course
 submit = () => {
   const { context } = this.props;
   const { authenticatedUser} = this.props.context;
 
-  const {
+
+  let {
     title,
     description,
-    estimatedTime,
-    materialsNeeded
+    materialsNeeded,
+    estimatedTime
   } = this.state;
+
+  if (estimatedTime) {
+    estimatedTime =  estimatedTime.match(/\d+/)[0];
+    estimatedTime = estimatedTime + " Hours";
+  }
 
   // Create course
   const course = {
@@ -128,7 +155,7 @@ submit = () => {
     materialsNeeded
   };
 
-
+//creates new course and returns to home
   context.data.createCourse(course, authenticatedUser)
     .then( errors => {
       if (errors.length > 0) {
@@ -142,6 +169,8 @@ submit = () => {
     });
 }
 
+
+//returns to home
 cancel = () => {
   this.props.history.push('/');
 }
