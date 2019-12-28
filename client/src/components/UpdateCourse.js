@@ -159,6 +159,7 @@ change = (event) => {
 }
 
 //Helps with markup for the materials needed list
+//http://jsfiddle.net/abhiagrawal87/m39xt/
 keyPressed = (event) => {
   if (event.target.value === '') {
     event.target.value = "* "

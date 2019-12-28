@@ -118,7 +118,7 @@ keyPressed = (event) => {
   }
 }
 //Helps with markup for the materials List
-
+//http://jsfiddle.net/abhiagrawal87/m39xt/
 keyUp = (event) => {
   if (event.target.value === '') {
     event.target.value = "* "
