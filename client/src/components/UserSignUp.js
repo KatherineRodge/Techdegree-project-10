@@ -99,7 +99,7 @@ export default class UserSignUp extends React.Component {
 
       context.data.createUser(user)
         .then( errors => {
-          if (errors.length > 0) {
+          if (errors) {
             this.setState({ errors });
           } else {
             context.actions.signIn(user.emailAddress, user.password)
