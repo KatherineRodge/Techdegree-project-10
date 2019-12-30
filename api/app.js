@@ -46,12 +46,32 @@ function asyncHandler(cb){
   }
 }
 
+//check to see if password is not NULL
+function passwordCheck(password){
+  if (password) {
+    return true
+  } else {
+    return false
+  }
+}
+
+//valid email
+//https://www.w3resource.com/javascript/form/email-validation.php
+function ValidateEmail(mail) {
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+  {
+    return (true)
+  } else {
+    return (false)
+  }
+}
+
+
 //Authorization Middleware
 const authorizationMiddleware = (asyncHandler( async(req, res, next) => {
   let cred = auth(req);
-
   if (cred) {
-    // find user where email matches username
+  // find user where email matches username
     let authUser = await User.findAll({
       where: { emailAddress : cred.name },
     });
@@ -75,33 +95,13 @@ const authorizationMiddleware = (asyncHandler( async(req, res, next) => {
      return res.status(401).json('Sorry, not Authorized');
   }
   next();
-}));
+}))
 
-//check to see if password is not NULL
-function passwordCheck(password){
-  if (password) {
-    return true
-  } else {
-    return false
-  }
-}
-
-//valid email
-//https://www.w3resource.com/javascript/form/email-validation.php
-function ValidateEmail(mail) {
- if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
-  {
-    return (true)
-  } else {
-    return (false)
-  }
-}
 
 //creates new user
 app.post('/api/users', asyncHandler(async (req, res) => {
       try {
         let user = req.body;
-
         //checks to see if password has value to run bcrypt
           if(passwordCheck(req.body.password)) {
           user.password = await bcrypt.hashSync(req.body.password,10);
@@ -133,8 +133,11 @@ app.get('/api/users', authorizationMiddleware, asyncHandler(async (req, res) => 
   res.json(app.locals.user);
   return res.status(200)
 } catch(error) {
+  if(error.name === "SequelizeValidationError") {
+  return res.status(400).json(error.message);
+} else {
   return res.json(error.message);
-}
+}}
 }));
 
 //Returns List of All Courses

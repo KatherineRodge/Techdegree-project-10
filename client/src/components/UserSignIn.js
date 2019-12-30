@@ -68,21 +68,33 @@ export default class UserSignIn extends React.Component {
     const { from } = this.props.location.state || { from: { pathname: '/' } };;
     const { emailAddress, password } = this.state;
 
-    context.actions.signIn(emailAddress, password)
-      .then((user) => {
-        if (user === null) {
-          this.setState(() => {
-            return { errors: [ 'Sign-in was unsuccessful' ] };
-          });
-        } else {
-          this.props.history.push(from.pathname);
-        }
+    //check to see if input has values before continuing
+    if(!emailAddress && !password) {
+      this.setState(() => {
+        return { errors: 'Both Password And Email Address Fields Must Have A Valid Value to Continue' };
       })
-      .catch((error) => {
-        console.error(error);
-        this.props.history.push('/error');
-      });
-  }
+    } else if(!emailAddress) {
+      this.setState(() => {
+        return { errors:  'Email Address Must Have A Valid Value to Continue' };
+      })
+    } else if(!password) {
+      this.setState(() => {
+        return { errors:  'Password Must Have A Valid Value to Continue' };
+      })
+    } else {
+    context.actions.signIn(emailAddress, password)
+    .then((user) => {
+      if (user === null) {
+        this.setState(() => {
+          return { errors: 'Sign-in was unsuccessful, Please Try To Enter Your Sign In Information Again'  };
+        });
+      } else {
+        this.props.history.push(from.pathname);
+      }
+   }).catch((error) => {
+      this.props.history.push('/error');
+    });
+  }}
 
   cancel = () => {
     this.props.history.push('/');

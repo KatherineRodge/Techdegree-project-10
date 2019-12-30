@@ -36,8 +36,8 @@ export default (props) => {
 //handles validation errors
 function ErrorsDisplay({errors}) {
   let errorsDisplay = null;
-
   if (errors.length > 0) {
+
     let errorsString = errors.split(',');
     errorsDisplay = (
       <div>

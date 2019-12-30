@@ -40,10 +40,13 @@ export class Provider extends Component {
   signIn = async (emailAddress, password) => {
     let originalPassword = password;
     let user = await Data.prototype.getUser(emailAddress, password);
-    user = user[0];
-    user.password = originalPassword;
 
-    if (user !== null) {
+
+
+    if (user) {
+      user = user[0];
+      user.password = originalPassword;
+      
       this.setState(() => {
         return {
           authenticatedUser: user,

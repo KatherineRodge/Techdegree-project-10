@@ -18,7 +18,6 @@ async componentDidMount(){
 //Displays all Courses currently in database
 render() {
 const {courses} = this.state;
-console.log(courses);
 //waits for courses to result a value
 if (courses.length === 0) {
     return (

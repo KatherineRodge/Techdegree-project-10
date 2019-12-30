@@ -111,7 +111,7 @@ export default class UpdateCourse extends React.Component {
                 <div className="course--stats">
                     <ul className="course--stats--list">
                       <li className="course--stats--list--item">
-                        <h4>Estimated Time</h4>
+                        <h4>Estimated Time (In Hours)</h4>
                         <input
                           id="estimatedTime"
                           name="estimatedTime"
