@@ -18,6 +18,16 @@ async componentDidMount(){
 //Displays all Courses currently in database
 render() {
 const {courses} = this.state;
+console.log(courses);
+//waits for courses to result a value
+if (courses.length === 0) {
+    return (
+      <div>
+        <p>Loading...</p>
+      </div>
+    )
+} else {
+
 const courseList = courses.map((course, index) =>
   <div className="grid-33" key={index}><Link className="course--module course--link" to={`/courses/${course.id}`}>
     <h4 className="course--label">{index+1}</h4>
@@ -34,4 +44,4 @@ const courseList = courses.map((course, index) =>
             </svg>New Course</h3>
         </a></div>
     </div>
-)}}
+)}}}
