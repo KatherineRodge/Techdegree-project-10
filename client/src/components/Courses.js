@@ -9,9 +9,13 @@ state = {
 
 async componentDidMount(){
   const {context} = this.props;
+  try {
   let courseData = await context.data.getCourses();
   courseData = courseData.courses;
   this.setState({courses: courseData})
+} catch (error) {
+  throw new Error; 
+}
 }
 
 //Displays all Courses currently in database
