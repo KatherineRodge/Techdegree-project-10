@@ -133,13 +133,14 @@ app.get('/api/users', authorizationMiddleware, asyncHandler(async (req, res) => 
   res.json(app.locals.user);
   return res.status(200)
 } catch(error) {
-  res.json(error.message);
+  return res.json(error.message);
 }
 }));
 
 //Returns List of All Courses
 app.get('/api/courses', asyncHandler(async (req, res) => {
     //finds all courses, but excludes specific attributes
+    try {
     let courses = await Course.findAll({
       include: [{model: User,
         attributes:{
@@ -152,6 +153,9 @@ app.get('/api/courses', asyncHandler(async (req, res) => {
     });
     res.json({courses});
     return res.status(200).json();
+  } catch (error) {
+    return res.json(error.message);
+  }
 }));
 
 //Return Course with the appropriate :id
@@ -209,7 +213,6 @@ app.put('/api/courses/:id', authorizationMiddleware, asyncHandler(async (req, re
         return res.status(400).json("Both the Course Description and the Course Title must have a value");
       }}} catch(error) {
             if (error.name === "SequelizeValidationError") {
-            console.log(error);
             return res.status(400).json(error.message);
         }   else if (course && (course.userId != app.locals.user[0].dataValues.id)) {
             return res.status(403).json('Sorry, you not authorized to make changes to this course');
