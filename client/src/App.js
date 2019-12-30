@@ -42,9 +42,9 @@ return(
       <Route path="/signup" component={UserSignUpWithContext}/>
       <Route path='/signin' component={UserSignInWithContext}/>
       <Route path='/signout' component={UserSignOutWithContext}/>
+      <PrivateRoute path="/courses/create" component={CreateCourseWithContext}/>
       <Route exact path="/courses/:id" component={CourseDetailWithContext}/>
       <PrivateRoute path="/courses/:id/update" component={UpdateCourseWithContext}/>
-      <PrivateRoute path="/create" component={CreateCourseWithContext}/>
       <Route path="/forbidden" component={Forbidden}/>
       <Route path="/error" component={Error} />
       <Route path='/notfound' component={NotFound} />
