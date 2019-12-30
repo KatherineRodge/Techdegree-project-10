@@ -152,12 +152,6 @@ submit = () => {
     estimatedTime
   } = this.state;
 
-
-  if (estimatedTime) {
-    estimatedTime =  estimatedTime.match(/\d+/)[0];
-    estimatedTime = estimatedTime + " Hours";
-  }
-
   // Create course
   const course = {
     title,

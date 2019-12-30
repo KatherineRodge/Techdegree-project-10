@@ -39,7 +39,6 @@ function ErrorsDisplay({errors}) {
 
   if (errors.length > 0) {
     let errorsString = errors.split(',');
-    console.log(errors);
     errorsDisplay = (
       <div>
         <h2 className="validation--errors--label">Validation Errors</h2>

@@ -140,7 +140,7 @@ export default class UpdateCourse extends React.Component {
         </div>
       </div>
 )} else {
-   return(<Redirect to="/notFound"/>)
+   return(<Redirect to="/notfound"/>)
 }
 }
 
@@ -186,11 +186,6 @@ submit = () => {
     estimatedTime,
     id
   } = this.state;
-
-  if (estimatedTime) {
-  estimatedTime =  estimatedTime.match(/\d+/)[0];
-  estimatedTime = estimatedTime + " Hours";
-  }
 
   // Create course
   const course = {

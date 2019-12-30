@@ -55,7 +55,8 @@ function checkUser(e){
 function checkTime() {
    if (time) {
       estimatedTime = <li className="course--stats--list--item">
-                          <h4>Estimated Time</h4>
+                          <h4>Estimated Time (In Hours)</h4>
+
                           <h3>{result.estimatedTime}</h3>
                           </li>
       return estimatedTime;
@@ -68,11 +69,6 @@ function checkTime() {
 //check to see if Materials have a value
 function checkMaterials() {
   if(materialsNeeded) {
-    // materialsNeeded = materialsNeeded.split("* ");
-    // materialsNeeded.shift();
-    // const materialListItems = materialsNeeded.map((material, index) =>
-    //   <li key={index}>{material}</li>
-    // );
     materialList =
         <li className="course--stats--list--item">
           <h4>Materials Needed</h4>
@@ -126,7 +122,7 @@ const requiredInformation =
       </div>
     </div>
 )} else {
-   return (<Redirect to="/notFound" />)
+   return (<Redirect to="/notfound" />)
 }
 
 }

@@ -30,6 +30,8 @@ const CreateCourseWithContext = withContext(CreateCourse);
 export default class App extends Component {
 
 render(){
+
+
 return(
   <Router>
     <div>
@@ -45,8 +47,8 @@ return(
       <PrivateRoute path="/create" component={CreateCourseWithContext}/>
       <Route path="/forbidden" component={Forbidden}/>
       <Route path="/error" component={Error} />
-      <Route path='/notFound' component={NotFound} />
-      <Redirect from="*" to="/notFound" />
+      <Route path='/notfound' component={NotFound} />
+      <Redirect from="*" to="/notfound" />
       </Switch>
     </div>
   </Router>
