@@ -37,9 +37,7 @@ export default class UpdateCourse extends React.Component {
     }
   }
 
-
   render(){
-
   const {courses} = this.state;
 
   let courseId = this.props.match.params.id;
@@ -209,7 +207,7 @@ submit = () => {
       if (errors.length > 0) {
         this.setState({ errors });
       } else {
-        this.props.history.push(`/course/${id}`);
+        this.props.history.push(`/courses/${id}`);
       }
     })
     .catch((err) => {
@@ -220,7 +218,7 @@ submit = () => {
 //Return back to course
   cancel = () => {
     const {id} = this.state;
-    this.props.history.push(`/course/${id}`);
+    this.props.history.push(`/courses/${id}`);
   }
 
 }

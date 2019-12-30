@@ -2,10 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-export default class Header extends React.PureComponent {
+export default ({context}) => {
 
-  render () {
-    const authUser = this.props.context.authenticatedUser;
+    const authUser = context.authenticatedUser;
 
      return(
       <div className="header">
@@ -15,17 +14,17 @@ export default class Header extends React.PureComponent {
             {authUser !== null ? (
               <React.Fragment>
                 <span>Welcome, {authUser.firstName} {authUser.lastName}!</span>
-                <Link to="/sign-out">Sign Out</Link>
+                <Link to="/signout">Sign Out</Link>
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <Link className="signup" to="/sign-up">Sign Up</Link>
-                <Link className="signin" to="/sign-in">Sign In</Link>
+                <Link className="signup" to="/signup">Sign Up</Link>
+                <Link className="signin" to="/signin">Sign In</Link>
               </React.Fragment>
             )}
           </nav>
         </div>
       </div>
     )
-}
+
 }

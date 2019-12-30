@@ -1,6 +1,7 @@
 //Shows individual course data, plus delete and update
 import React from 'react'
 import {Redirect} from 'react-router-dom';
+const ReactMarkdown = require('react-markdown');
 
 export default class CourseDetail extends React.Component {
 state = {
@@ -43,7 +44,7 @@ if (courses.length === 0) {
 function checkUser(e){
   if(authorizedUser && (authorizedUser.id === result.userId)){
     updateButtons =
-      <span><a className="button" href={courseId + "/update-course"}>Update Course</a>
+      <span><a className="button" href={courseId + "/update"}>Update Course</a>
       <button className="button" onClick={e}>Delete Course</button></span>
       return updateButtons;
   }
@@ -67,17 +68,17 @@ function checkTime() {
 //check to see if Materials have a value
 function checkMaterials() {
   if(materialsNeeded) {
-    materialsNeeded = materialsNeeded.split("* ");
-    materialsNeeded.shift();
-    const materialListItems = materialsNeeded.map((material, index) =>
-      <li key={index}>{material}</li>
-    );
+    // materialsNeeded = materialsNeeded.split("* ");
+    // materialsNeeded.shift();
+    // const materialListItems = materialsNeeded.map((material, index) =>
+    //   <li key={index}>{material}</li>
+    // );
     materialList =
         <li className="course--stats--list--item">
           <h4>Materials Needed</h4>
-          <ul>
-            {materialListItems}
-          </ul>
+          <ReactMarkdown
+            source = {materialsNeeded}
+          />
         </li>
     return materialList;
   } else {
@@ -99,7 +100,7 @@ const requiredInformation =
         <p>By: {result.User.firstName} {result.User.lastName}</p>
       </div>
       <div className="course--description">
-        <p>{result.description}</p>
+        <ReactMarkdown source = {result.description} />
       </div>
     </div>;
 

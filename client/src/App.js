@@ -37,12 +37,12 @@ return(
 
       <Switch>
       <Route exact path="/" component={CoursesWithContext}/>
-      <Route path="/sign-up" component={UserSignUpWithContext}/>
-      <Route path='/sign-in' component={UserSignInWithContext}/>
-      <Route path='/sign-out' component={UserSignOutWithContext}/>
-      <Route exact path="/course/:id" component={CourseDetailWithContext}/>
-      <PrivateRoute path="/course/:id/update-course" component={UpdateCourseWithContext}/>
-      <PrivateRoute path="/create-course" component={CreateCourseWithContext}/>
+      <Route path="/signup" component={UserSignUpWithContext}/>
+      <Route path='/signin' component={UserSignInWithContext}/>
+      <Route path='/signout' component={UserSignOutWithContext}/>
+      <Route exact path="/courses/:id" component={CourseDetailWithContext}/>
+      <PrivateRoute path="/courses/:id/update" component={UpdateCourseWithContext}/>
+      <PrivateRoute path="/create" component={CreateCourseWithContext}/>
       <Route path="/forbidden" component={Forbidden}/>
       <Route path="/error" component={Error} />
       <Route path='/notFound' component={NotFound} />

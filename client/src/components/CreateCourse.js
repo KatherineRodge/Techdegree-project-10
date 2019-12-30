@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './Form.js';
 
+
 export default class CreateCourse extends React.Component {
 
 //sets all course item to state
@@ -12,7 +13,10 @@ state = {
   errors: []
 }
 
+
+
 render(){
+
 const {
   title,
   description,
@@ -27,6 +31,7 @@ const {
 
 const userFirstName = authenticatedUser.firstName;
 const userLastName = authenticatedUser.lastName;
+
 
 return(
       <div className="bounds course--detail">
@@ -55,13 +60,15 @@ return(
                 </div>
                 <div className="course--description">
                 <div>
-                <textarea
+
+                < textarea
                   id="description"
                   name="description"
                   className="course--description"
                   value={description}
                   onChange={this.change}
                   placeholder="Course description..." />
+
                 </div>
                 </div>
               </div>
@@ -97,7 +104,10 @@ return(
           )} />
       </div>
     </div>
-)}
+)
+
+
+}
 
 //on input change set state
 change = (event) => {
@@ -141,6 +151,7 @@ submit = () => {
     materialsNeeded,
     estimatedTime
   } = this.state;
+
 
   if (estimatedTime) {
     estimatedTime =  estimatedTime.match(/\d+/)[0];

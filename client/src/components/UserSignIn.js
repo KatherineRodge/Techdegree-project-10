@@ -44,7 +44,7 @@ export default class UserSignIn extends React.Component {
               </React.Fragment>
             )} />
           <p>
-            Don't have a user account? <Link to="/sign-up">Click here</Link> to sign up!
+            Don't have a user account? <Link to="/signup">Click here</Link> to sign up!
           </p>
         </div>
       </div>
@@ -65,7 +65,7 @@ export default class UserSignIn extends React.Component {
 
   submit = () => {
     const { context } = this.props;
-    const { from } = this.props.location.state;
+    const { from } = this.props.location.state || { from: { pathname: '/' } };;
     const { emailAddress, password } = this.state;
 
     context.actions.signIn(emailAddress, password)
