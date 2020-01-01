@@ -19,7 +19,7 @@ export default ({context}) => {
             ) : (
               <React.Fragment>
                 <Link className="signup" to="/signup">Sign Up</Link>
-                <Link className="signin" to="/signin">Sign In</Link>
+                <Link className="signin" onClick={context.actions.prevPath} to='/signin'>Sign In</Link>
               </React.Fragment>
             )}
           </nav>

@@ -9,7 +9,8 @@ export class Provider extends Component {
 
   state = {
     courses: [],
-    authenticatedUser: Cookies.getJSON('authenticatedUser') || null
+    prevPath: null,
+    authenticatedUser: Cookies.getJSON('authenticatedUser') || null,
   }
 
   constructor() {
@@ -18,14 +19,16 @@ export class Provider extends Component {
   }
 
   render() {
-    const {courses, authenticatedUser} = this.state;
+    const {courses, authenticatedUser, prevPath} = this.state;
     const value = {
       courses,
       authenticatedUser,
+      prevPath,
       data: this.data,
       actions: {
         signIn : this.signIn,
-        signOut: this.signOut
+        signOut: this.signOut,
+        prevPath: this.setPrevRoute
       }
     };
 
@@ -35,6 +38,12 @@ export class Provider extends Component {
         </Context.Provider>
       );
   }
+
+//
+ setPrevRoute = () => {
+   this.setState({prevPath: window.location.pathname})
+ }
+
 
 //Sign in functionality
   signIn = async (emailAddress, password) => {
@@ -46,7 +55,7 @@ export class Provider extends Component {
     if (user) {
       user = user[0];
       user.password = originalPassword;
-      
+
       this.setState(() => {
         return {
           authenticatedUser: user,
@@ -74,7 +83,7 @@ export default function withContext(Component) {
   return function ContextComponent(props) {
     return (
       <Context.Consumer>
-        {context => <Component {...props} context={context} />}
+        {context => <Component {...props} context={context}/>}
       </Context.Consumer>
     );
   }

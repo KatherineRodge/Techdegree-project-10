@@ -16,6 +16,7 @@ export default class UserSignIn extends React.Component {
       errors,
     } = this.state;
 
+
     return (
       <div className="bounds">
         <div className="grid-33 centered signin">
@@ -65,8 +66,9 @@ export default class UserSignIn extends React.Component {
 
   submit = () => {
     const { context } = this.props;
-    const { from } = this.props.location.state || { from: { pathname: '/' } };;
+    const { from } =  this.props.location.state || {from: {pathname: context.prevPath }}  || { from: { pathname: '/' }};
     const { emailAddress, password } = this.state;
+
 
     //check to see if input has values before continuing
     if(!emailAddress && !password) {
@@ -89,7 +91,8 @@ export default class UserSignIn extends React.Component {
           return { errors: 'Sign-in was unsuccessful, Please Try To Enter Your Sign In Information Again'  };
         });
       } else {
-        this.props.history.push(from.pathname);
+        console.log(from);
+        this.props.history.push(from);
       }
    }).catch((error) => {
       this.props.history.push('/error');

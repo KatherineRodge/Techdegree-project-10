@@ -14,7 +14,8 @@ async componentDidMount(){
   const {context} = this.props;
   let courseData = await context.data.getCourses();
   courseData = courseData.courses;
-  this.setState({courses: courseData})
+  this.setState(
+    {courses: courseData})
 }
 
 //Finds course that matchs id

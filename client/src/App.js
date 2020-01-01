@@ -13,7 +13,7 @@ import CourseDetail from './components/CourseDetail.js'
 import UpdateCourse from './components/UpdateCourse.js'
 import CreateCourse from './components/CreateCourse.js'
 import Forbidden from './components/Forbidden.js'
-import Error from "./components/Error.js"
+import UnhandledError from "./components/Error.js"
 
 import withContext from './context.js';
 import PrivateRoute from './PrivateRoutes.js';
@@ -32,6 +32,7 @@ export default class App extends Component {
 render(){
 
 
+
 return(
   <Router>
     <div>
@@ -46,7 +47,7 @@ return(
       <Route exact path="/courses/:id" component={CourseDetailWithContext}/>
       <PrivateRoute path="/courses/:id/update" component={UpdateCourseWithContext}/>
       <Route path="/forbidden" component={Forbidden}/>
-      <Route path="/error" component={Error} />
+      <Route path="/error" component={UnhandledError} />
       <Route path='/notfound' component={NotFound} />
       <Redirect from="*" to="/notfound" />
       </Switch>
