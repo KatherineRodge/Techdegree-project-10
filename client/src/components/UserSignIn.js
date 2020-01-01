@@ -91,7 +91,6 @@ export default class UserSignIn extends React.Component {
           return { errors: 'Sign-in was unsuccessful, Please Try To Enter Your Sign In Information Again'  };
         });
       } else {
-        console.log(from);
         this.props.history.push(from);
       }
    }).catch((error) => {

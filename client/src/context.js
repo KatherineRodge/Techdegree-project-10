@@ -39,7 +39,7 @@ export class Provider extends Component {
       );
   }
 
-//
+//Saves previous path when sign in link is clicked in order to bring user back to that page once sign in is succesful
  setPrevRoute = () => {
    this.setState({prevPath: window.location.pathname})
  }

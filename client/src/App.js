@@ -13,7 +13,7 @@ import CourseDetail from './components/CourseDetail.js'
 import UpdateCourse from './components/UpdateCourse.js'
 import CreateCourse from './components/CreateCourse.js'
 import Forbidden from './components/Forbidden.js'
-import UnhandledError from "./components/Error.js"
+import UnhandledError from "./components/UnhandledError.js"
 
 import withContext from './context.js';
 import PrivateRoute from './PrivateRoutes.js';
