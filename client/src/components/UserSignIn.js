@@ -91,7 +91,12 @@ export default class UserSignIn extends React.Component {
           return { errors: 'Sign-in was unsuccessful, Please Try To Enter Your Sign In Information Again'  };
         });
       } else {
+        //if user was previously on the sign up page - path is redirected back to index
+        if (from.pathname === '/signup') {
+          this.props.history.push('/')
+        } else {
         this.props.history.push(from);
+      }
       }
    }).catch((error) => {
       this.props.history.push('/error');
