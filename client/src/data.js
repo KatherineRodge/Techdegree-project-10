@@ -28,7 +28,7 @@ export default class Data {
   return fetch(url, options)
     .then( response => {
     if (!response.ok) { throw response }
-    return response  //we only get here if there is no error
+    return response  //no error present
   }).catch( err => {
     return err
   });
