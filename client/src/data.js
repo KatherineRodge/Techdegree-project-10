@@ -30,7 +30,7 @@ export default class Data {
     if (!response.ok) { throw response }
     return response  //we only get here if there is no error
   }).catch( err => {
-    window.location.pathname = '/error'
+    return err
   });
 }
 
@@ -46,7 +46,7 @@ export default class Data {
         return null;
       }
       else {
-        throw new Error();
+        window.location.pathname = '/error'
       }
     }
 
@@ -60,7 +60,7 @@ export default class Data {
           return null;
         }
         else {
-          throw new Error();
+          window.location.pathname = '/error'
         }
       }
 
@@ -76,7 +76,7 @@ export default class Data {
           });
         }
         else {
-          throw new Error();
+          window.location.pathname = '/error'
         }
       }
 
@@ -92,7 +92,7 @@ export default class Data {
           });
         }
         else {
-          throw new Error();
+          window.location.pathname = '/error'
         }
       }
 
@@ -103,7 +103,7 @@ export default class Data {
       if (response.status === 204) {
         return [];
       } else {
-        throw new Error();
+        window.location.pathname = '/error'
       }
       }
 
@@ -118,7 +118,7 @@ export default class Data {
             return data;
           })
         } else {
-          throw new Error();
+          window.location.pathname = '/error'
         }
       }
 }
