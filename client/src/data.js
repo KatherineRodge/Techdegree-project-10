@@ -25,6 +25,8 @@ export default class Data {
       options.headers['Authorization'] = `Basic ${encodedCredentials}`;
     }
 
+//Error handling if server fetch failed
+//https://gist.github.com/odewahn/5a5eeb23279eed6a80d7798fdb47fe91
   return fetch(url, options)
     .then( response => {
     if (!response.ok) { throw response }
