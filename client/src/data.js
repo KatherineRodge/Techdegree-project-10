@@ -25,8 +25,16 @@ export default class Data {
       options.headers['Authorization'] = `Basic ${encodedCredentials}`;
     }
 
-    return fetch(url, options);
+  return fetch(url, options)
+    .then( response => {
+    if (!response.ok) { throw response }
+    return response  //we only get here if there is no error
+  }).catch( err => {
+    window.location.pathname = '/error'
+  });
 }
+
+
 
 //Fetched course List
     async getCourses() {
